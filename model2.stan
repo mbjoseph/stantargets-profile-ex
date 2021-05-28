@@ -5,13 +5,15 @@ data {
   real true_beta;
 }
 parameters {
+  real alpha;
   real beta;
 }
 model {
   profile("likelihood") {
-    y ~ normal(x * beta, 1);
+    y ~ normal(alpha + x * beta, 1);
   }
   profile("priors") {
+    alpha ~ normal(0, 1);
     beta ~ normal(0, 1);
   }
 }

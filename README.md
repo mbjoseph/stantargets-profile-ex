@@ -1,3 +1,3 @@
-# Profiling a Stan model with stantargets
+# Stantargets sandbox
 
-This repo is a simple example of using Stan's profiling functionality with the stantargets package. 
+Experimenting with the stantargets R package.

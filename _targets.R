@@ -1,6 +1,4 @@
-# _targets.R
 library(targets)
-library(tarchetypes)
 library(stantargets)
 
 generate_data <- function(n) {
@@ -13,8 +11,17 @@ generate_data <- function(n) {
 list(
   tar_stan_mcmc(
     example,
-    "model.stan",
+    c("model1.stan", "model2.stan"),
     data = generate_data(20),
   ), 
-  tar_render(report, "report.Rmd")
+  tar_stan_summary(
+    summary1,
+    fit = example_mcmc_model1,
+    summaries = list(~posterior::quantile2(.x, probs = c(0.25, 0.75)))
+  ), 
+  tar_stan_summary(
+    summary2,
+    fit = example_mcmc_model2,
+    summaries = list(~posterior::quantile2(.x, probs = c(0.25, 0.75)))
+  )
 )
